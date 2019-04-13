@@ -111,7 +111,7 @@ retorno:
 invoke WriteConsole, consoleOutHandle, addr msgAvaliacoes, sizeof msgAvaliacoes, addr writeCount, NULL
 invoke ReadConsole, consoleInHandle, addr stringEntrada, sizeof stringEntrada, addr readCount, NULL
 
-call converteEntrada             ;chamando a funÁ„o que criei para converter buscando o valor na tabela ASC
+call converteEntrada             ;chamando a fun√ß√£o que criei para converter buscando o valor na tabela ASC
 invoke atodw, addr stringEntrada ;convertendo a string para inteiro
 mov varA, eax                    ;movendo o resultado que ficou em eax para varA
 
@@ -119,11 +119,11 @@ mov varA, eax                    ;movendo o resultado que ficou em eax para varA
 
 
 
-;------------------------------ MENSAGEM PEDINDO AS NOTAS E FAZENDO A SOMA UTILIZANDO A PILHA DE EXECU«√O DA FPU -------------------------------------
+;------------------------------ MENSAGEM PEDINDO AS NOTAS E FAZENDO A SOMA UTILIZANDO A PILHA DE EXECU√á√ÉO DA FPU -------------------------------------
 
-xor ecx, ecx        ;REGISTRADOR UTILIZADO PARA LA«OS // colocando ele em 0
+xor ecx, ecx        ;REGISTRADOR UTILIZADO PARA LA√áOS // colocando ele em 0
 finit               ;INICIANDO NOSSO ARRAY DE FLOAT COM 0
-fld aux             ;EMPILHANDO aux NA PILHA DE EXECU«√O DA FPU
+fld aux             ;EMPILHANDO aux NA PILHA DE EXECU√á√ÉO DA FPU
 
     laco:
 
@@ -139,7 +139,7 @@ fld aux             ;EMPILHANDO aux NA PILHA DE EXECU«√O DA FPU
         invoke ReadConsole, consoleInHandle, addr stringEntrada, sizeof stringEntrada, addr readCount, NULL           ;RECEBENDO O VALOR DA NOTA
         invoke StrToFloat, addr stringEntrada, addr varC        ; CONVERTENDO O VALOR RECEBIDO PARA FLOAT (REAL8)
 
-        fld varC ;EMPILHANDO varC NA PILHA DE EXECU«√O DA FPU (RECURSIVO POIS ESTA NO LA«O)
+        fld varC ;EMPILHANDO varC NA PILHA DE EXECU√á√ÉO DA FPU (RECURSIVO POIS ESTA NO LA√áO)
 
         fadd st(0), st(1)   ;SOMANDO ST(0) E ST(1) E COLOCANDO EM ST(0)
         
@@ -148,24 +148,24 @@ fld aux             ;EMPILHANDO aux NA PILHA DE EXECU«√O DA FPU
 cmp ecx, varA       ;COMPARANDO ecx COM O VALOR DA QUANTIDADE DE NOTAS
 jl laco
 
-fstp aux             ;APOS A EXECU«√O RECURSIVA O VALOR DO TOPO DA PILHA IRA CONTER A SOMA DAS NOTAS E VAMOS PEGAR O VALOR E PASSAR PARA AUX E DAR UM POP NO VALOR NA PILHA DE EXECU«√O
+fstp aux             ;APOS A EXECU√á√ÉO RECURSIVA O VALOR DO TOPO DA PILHA IRA CONTER A SOMA DAS NOTAS E VAMOS PEGAR O VALOR E PASSAR PARA AUX E DAR UM POP NO VALOR NA PILHA DE EXECU√á√ÉO
 
 printf("\nSoma das notas = %f", aux)            ; [[[ TESTANDO ]]]
 
 ;------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-;---------------------- PEGANDO A SOMA DAS NOTAS E A QUANTIDADE DE NOTAS E FAZENDO A DIVIS√O PARA OBTER A M…DIA ---------------------------------------
+;---------------------- PEGANDO A SOMA DAS NOTAS E A QUANTIDADE DE NOTAS E FAZENDO A DIVIS√ÉO PARA OBTER A M√âDIA ---------------------------------------
 
 invoke dwtoa, varA, addr entradaConvertida              ;CONVERTENDO A VARIAVEL varA PARA STRING
 invoke StrToFloat, addr entradaConvertida, addr varC    ;CONVERTENDO A VARIAVEL entradaConvertida QUE ESTA COMO STRING PARA FLOAT E GRAVANDO EM varC
 
 fld varC            ;EMPILHANDO varC QUE CONTEM O VALOR DA QUANTIDADE DE NOTAS
-fld aux             ;EMPILHA O VALOR DA SOMA DAS NOTAS NOVAMENTE, POREM S” DEPOIS DE EMPILHAR A QUANTIDADE DE NOTAS
+fld aux             ;EMPILHA O VALOR DA SOMA DAS NOTAS NOVAMENTE, POREM S√ì DEPOIS DE EMPILHAR A QUANTIDADE DE NOTAS
 
 fdiv st(0), st(1)   ;DIVIDINDO O VALOR QUE ESTA EM st(0) POR st(1) E SALVANDO EM st(0)
 
-fst aux             ;PEGANDO O VALOR QUE ESTA NO TOPO DA PILHA, QUE SER¡ O VALOR DA DIVIS√O  E SAVANDO EM AUX
+fst aux             ;PEGANDO O VALOR QUE ESTA NO TOPO DA PILHA, QUE SER√Å O VALOR DA DIVIS√ÉO  E SAVANDO EM AUX
 
 printf("\nSoma das notas dividido pela quantidade de notas = %f\n", aux)          ;[[[ TESTANDO ]]]
 
@@ -175,17 +175,17 @@ printf("\nSoma das notas dividido pela quantidade de notas = %f\n", aux)        
 
 ;--------------------- COMPARANDO PARA VER SE O ALUNO PASSOU, FOI PRA FINAL OU FICOU REPROVADO --------------------------------------------------------
 
-finit           ;LIMPANDO A PILHA DE EXECU«√O DA FPU
+finit           ;LIMPANDO A PILHA DE EXECU√á√ÉO DA FPU
 
-fld [notaAprovado]        ;EMPILHANDO ( 7.0 ) QUE … A NOTA QUE VOU USAR PRA COMPARAR SE O ALUNO … APROVADO
+fld [notaAprovado]        ;EMPILHANDO ( 7.0 ) QUE √â A NOTA QUE VOU USAR PRA COMPARAR SE O ALUNO √â APROVADO
 fld [aux]                 ;EMPILHANDO A MEDIA
 
 fcom                    ;COMPARANDO ST(0) COM ST(1)
-fstsw ax                ;FUN«’ES REFERENTES A MANIPULA«√O DAS FLGS DE STATUS DA FPU
+fstsw ax                ;FUN√á√ïES REFERENTES A MANIPULA√á√ÉO DAS FLGS DE STATUS DA FPU
 sahf
 
-jae aprovado            ;COMPARA SE … MAIOR OU IGUAL E FAZ O DESVIO PARA "APROVADO"
-jb naoAprovado          ;COMPARA SE … MENOR E FAZ O DESVIO PARA "REPROVADO"
+jae aprovado            ;COMPARA SE √â MAIOR OU IGUAL E FAZ O DESVIO PARA "APROVADO"
+jb naoAprovado          ;COMPARA SE √â MENOR E FAZ O DESVIO PARA "REPROVADO"
 
 
 
@@ -206,7 +206,7 @@ jmp outroAluno
 
 
 
-            ;------ N√O APROVADO ---------------------------------------------------------------------------
+            ;------ N√ÉO APROVADO ---------------------------------------------------------------------------
             naoAprovado:
 
             finit
@@ -228,7 +228,7 @@ jmp outroAluno
                         fst cal     
 
                         finit       ;ZERANDO A PILHA DA FPU
-                        fld cal     ;EMPILHANDO O VALOR DA MULTIPLICA«√O ACIMA
+                        fld cal     ;EMPILHANDO O VALOR DA MULTIPLICA√á√ÉO ACIMA
                         fld peso3
                         fsub st(0), st(1)  ;SUBTRAINDO ( 5 - CAL )
                         fst cal
@@ -285,7 +285,7 @@ outroAluno:
 
     cmp al, 115
     je retorno
-    jmp retorno
+    jmp fim
     
 ;--------------------------------------------
 

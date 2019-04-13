@@ -1,2 +1,2 @@
 # Arquitetura
-Disciplina de arquitetura de computadores - ufpb
+Disciplina de arquitetura de computadores - UFPB
